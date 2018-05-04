@@ -2,11 +2,11 @@
 
 Correctly identify digits from a dataset of handwritten images (MNIST)
 
-Requires:
-	- Numpy
-	- Pandas
-	- tensoflow
-	- Sklearn
+	Requires:
+		- Numpy
+		- Pandas
+		- tensoflow
+		- Sklearn
 
 Usage: python3 main.py [-n][-v]
 
