@@ -9,8 +9,9 @@ import accuracy_estimation
 
 def main():
         # Get the data
+    print("Extracting data ...")
     df_train = pd.DataFrame(pd.read_csv("./train.csv"))
-    df_test = pd.DataFrame(pd.read_csv("./test.csv"))
+    df_test = pd.read_csv("./test.csv")
 
         # Split features train / test
     X_train, Y_train, X_test, Y_test = data_process.split_data(df_train)
@@ -25,8 +26,8 @@ def main():
     parameters['n_hidden'] = 2
     parameters['hidden_dim'] = 200
     parameters['n_class'] = 10
-    parameters['learning_rate'] = 0.03
-    parameters['training_epochs'] = 200
+    parameters['learning_rate'] = 0.01
+    parameters['training_epochs'] = 150
     parameters['visualize'] = False
     if ((len(argv) > 1 and argv[1] == '-v') or (len(argv) > 2 and argv[2] == '-v')):
         parameters['visualize'] = True
