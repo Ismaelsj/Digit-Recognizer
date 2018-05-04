@@ -29,14 +29,14 @@ def main():
     parameters['learning_rate'] = 0.01
     parameters['training_epochs'] = 150
     parameters['visualize'] = False
-    if ((len(argv) > 1 and argv[1] == '-v') or (len(argv) > 2 and argv[2] == '-v')):
+    if ((len(argv) > 1 and argv[1] == "-v") or (len(argv) > 2 and argv[2] == "-v") or (len(argv) > 3 and argv[3] == "-v")):
         parameters['visualize'] = True
 
         # Make model
     nn_model = model.make_model(parameters)
 
         # Train model
-    if (len(argv) > 1 and argv[1] == '-n') or (len(argv) > 2 and argv[2] == '-n'):
+    if ((len(argv) > 1 and argv[1] == "-n") or (len(argv) > 2 and argv[2] == "-n") or (len(argv) > 3 and argv[3] == "-n")):
         model.neural_network(X_train, Y_train, parameters, nn_model, X_test, Y_test)
 
         # Get accuracy
@@ -47,6 +47,9 @@ def main():
         accuracy_estimation.Estimation(parameters, nn_model, df_test)
     else:
         print("\nNo model found, please create a new file named 'img_perceptron.ckpt' in a directory named 'model' and launch the programme with the folowing commande :\n'python3 main.py -n'\n")
+
+    if ((len(argv) > 1 and argv[1] == "-e") or (len(argv) > 2 and argv[2] == "-e") or (len(argv) > 3 and argv[3] == "-e")):
+        accuracy_estimation.Exemple(df_test)
 
 if __name__ == '__main__':
     main()
