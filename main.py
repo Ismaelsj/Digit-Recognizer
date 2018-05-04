@@ -8,6 +8,11 @@ import model
 import accuracy_estimation
 
 def main():
+    if ((len(argv) > 1 and (argv[1] != "-v" and argv[1] != "-n" and argv[1] != "-e"))
+    or (len(argv) > 2 and (argv[2] == "-v" and argv[2] != "-n" and argv[2] != "-e"))
+    or (len(argv) > 3 and (argv[3] != "-v" and argv[3] != "-n" and argv[3] != "-e"))):
+        print("\nUsage: python3 main.py [-n][-v][-e]\n\t- Use '-n' to train a new model.\n\t- Use '-v' to visualize cost.\n\t- Use '-e' to visualize an exemple of prediction.\n")
+        return 0
         # Get the data
     print("Extracting data ...")
     df_train = pd.DataFrame(pd.read_csv("./train.csv"))
