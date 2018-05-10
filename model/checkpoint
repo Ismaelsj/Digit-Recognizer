@@ -1,2 +1,0 @@
-model_checkpoint_path: "img_perceptron.ckpt"
-all_model_checkpoint_paths: "img_perceptron.ckpt"
