@@ -9,7 +9,7 @@ import accuracy_estimation
 
 def main():
     if ((len(argv) > 1 and (argv[1] != "-v" and argv[1] != "-n" and argv[1] != "-e"))
-    or (len(argv) > 2 and (argv[2] == "-v" and argv[2] != "-n" and argv[2] != "-e"))
+    or (len(argv) > 2 and (argv[2] != "-v" and argv[2] != "-n" and argv[2] != "-e"))
     or (len(argv) > 3 and (argv[3] != "-v" and argv[3] != "-n" and argv[3] != "-e"))):
         print("\nUsage: python3 main.py [-n][-v][-e]\n\t- Use '-n' to train a new model.\n\t- Use '-v' to visualize cost.\n\t- Use '-e' to visualize an exemple of prediction.\n")
         return 0
@@ -19,7 +19,7 @@ def main():
     df_test = pd.read_csv("../test.csv")
 
         # Split features train / test
-    _, features = df_train.shape
+    features = df_train.shape[1] - 1
     X_train, Y_train, X_test, Y_test = data_process.split_data(df_train)
 
         # Vectorize labels
@@ -27,19 +27,14 @@ def main():
 
         # Model and training parameters
     parameters = {}
-    parameters['batches_size'] = 28
-    parameters['n_features'] = features - 1
+    parameters['batches_size'] = 50
+    parameters['n_features'] = features
     parameters['model_path'] = 'model/img_perceptron.ckpt'
-    parameters['kernel_size'] = [5, 5]
     parameters['n_channels'] = 1
     parameters['padding'] = "SAME"
-    parameters['stride'] = 1
-    parameters['n_filters'] = 64
-    parameters['n_hidden'] = 2
-    parameters['hidden_dim'] = 200
     parameters['n_class'] = 10
-    parameters['learning_rate'] = 0.001
-    parameters['training_epochs'] = 100
+    parameters['learning_rate'] = 0.003
+    parameters['training_epochs'] = 15
     parameters['visualize'] = False
     if ((len(argv) > 1 and argv[1] == "-v") or (len(argv) > 2 and argv[2] == "-v") or (len(argv) > 3 and argv[3] == "-v")):
         parameters['visualize'] = True

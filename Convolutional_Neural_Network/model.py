@@ -31,13 +31,8 @@ def random_batches(X, Y, batches_size):
 def make_model(parameters):
         # Network parmaeters
     n_features = parameters['n_features']
-    kernel_size = parameters['kernel_size']
     n_channels = parameters['n_channels']
     padding = parameters['padding']
-    stride = parameters['stride']
-    n_filter = parameters['n_filters']
-    n_hidden = parameters['n_hidden']
-    hidden_dim = parameters['hidden_dim']
     n_class = parameters['n_class']
     learning_rate = parameters['learning_rate']
 
@@ -46,15 +41,15 @@ def make_model(parameters):
 
         # Layers; Weights & Biases
     Weights = {
-        'w_conv1': tf.Variable(tf.random_normal([5, 5, n_channels, 32])),
-        'w_conv2': tf.Variable(tf.random_normal([5, 5, 32, 64])),
-        'w_fc': tf.Variable(tf.random_normal([7 * 7 * 64, 1024])),
-        'w_output': tf.Variable(tf.random_normal([1024, n_class]))
+        'w_conv1': tf.Variable(tf.random_normal([5, 5, n_channels, 16])),
+        'w_conv2': tf.Variable(tf.random_normal([5, 5, 16, 36])),
+        'w_fc': tf.Variable(tf.random_normal([7 * 7 * 36, 128])),
+        'w_output': tf.Variable(tf.random_normal([128, n_class]))
         }
     Biases = {
-        'b_conv1': tf.Variable(tf.random_normal([32])),
-        'b_conv2': tf.Variable(tf.random_normal([64])),
-        'b_fc': tf.Variable(tf.random_normal([1024])),
+        'b_conv1': tf.Variable(tf.random_normal([16])),
+        'b_conv2': tf.Variable(tf.random_normal([36])),
+        'b_fc': tf.Variable(tf.random_normal([128])),
         'b_output': tf.Variable(tf.random_normal([n_class]))
         }
 
@@ -67,7 +62,7 @@ def make_model(parameters):
     conv2 = tf.nn.conv2d(pool1, Weights['w_conv2'], strides=[1, 1, 1, 1], padding=padding)
     pool2 = tf.nn.max_pool(conv2, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding=padding)
 
-    fc = tf.reshape(pool2, [-1, 7 * 7 * 64])
+    fc = tf.reshape(pool2, [-1, 7 * 7 * 36])
     fc = tf.nn.relu(tf.matmul(fc ,Weights['w_fc']) + Biases['b_fc'])
 
     hypothesis = tf.add(tf.matmul(fc, Weights['w_output']), Biases['b_output'])
