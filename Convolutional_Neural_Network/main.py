@@ -27,7 +27,7 @@ def main():
 
         # Model and training parameters
     parameters = {}
-    parameters['batches_size'] = 50
+    parameters['batches_size'] = 20
     parameters['n_features'] = features
     parameters['model_path'] = 'model/img_perceptron.ckpt'
     parameters['n_channels'] = 1
