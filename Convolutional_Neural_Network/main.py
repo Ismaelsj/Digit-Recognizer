@@ -34,7 +34,7 @@ def main():
     parameters['padding'] = "SAME"
     parameters['n_class'] = 10
     parameters['learning_rate'] = 0.003
-    parameters['training_epochs'] = 15
+    parameters['training_epochs'] = 20
     parameters['visualize'] = False
     if ((len(argv) > 1 and argv[1] == "-v") or (len(argv) > 2 and argv[2] == "-v") or (len(argv) > 3 and argv[3] == "-v")):
         parameters['visualize'] = True

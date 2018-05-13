@@ -87,7 +87,8 @@ def neural_network(x_train, y_train, parameters, model, x_test, y_test):
     training_epochs = parameters['training_epochs']
 
         # Cost per epoch saver
-    epoch_list = []
+    epoch_train = []
+    epoch_test = []
     cost_list = []
     test_list = []
 
@@ -103,21 +104,24 @@ def neural_network(x_train, y_train, parameters, model, x_test, y_test):
         for epoch in range(training_epochs):
                 # Backprpagation & Cost
             batches_train, nb_batches_train = random_batches(x_train, y_train, parameters['batches_size'])
-            #batches_test, nb_batches_test = random_batches(x_test, y_test, parameters['batches_size'])
+            batches_test, nb_batches_test = random_batches(x_test, y_test, parameters['batches_size'])
             for batche in batches_train:
                 (batche_x, batche_y) = batche
                 _, train_cost = sess.run([model['train_op'], model['cost']], feed_dict={model['X']: batche_x, model['Y']: batche_y})
-                #test_cost = sess.run(model['cost'], feed_dict={model['X']: x_test, model['Y']: y_test})
                 # Compute average loss & save in list
-                epoch_list.append(epoch)
+                epoch_train.append(epoch)
                 cost_list.append(train_cost)
-                #test_list.append(test_cost)
+            for batche in batches_test:
+                (batche_x, batche_y) = batche
+                test_cost = sess.run(model['cost'], feed_dict={model['X']: batche_x, model['Y']: batche_y})
+                test_list.append(test_cost)
+                epoch_test.append(epoch)
             print ("Cost after epoch {0}: {1}".format(epoch, train_cost))
         save_path = saver.save(sess, parameters['model_path'])
         print("\nModel saved in path: {}\n".format(save_path))
 
     if parameters['visualize'] == True:
-        plt.plot(epoch_list, cost_list)
-        #plt.plot(epoch_list, test_list)
+        plt.plot(epoch_train, cost_list)
+        plt.plot(epoch_test, test_list)
         plt.show()
 
