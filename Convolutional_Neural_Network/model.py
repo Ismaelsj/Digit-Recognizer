@@ -105,14 +105,17 @@ def neural_network(x_train, y_train, parameters, model, x_test, y_test):
                 # Backprpagation & Cost
             batches_train, nb_batches_train = random_batches(x_train, y_train, parameters['batches_size'])
             batches_test, nb_batches_test = random_batches(x_test, y_test, parameters['batches_size'])
+                # Train
             for batche in batches_train:
                 (batche_x, batche_y) = batche
+                    # Compute average loss for training set  & save in list
                 _, train_cost = sess.run([model['train_op'], model['cost']], feed_dict={model['X']: batche_x, model['Y']: batche_y})
-                # Compute average loss & save in list
                 epoch_train.append(epoch)
                 cost_list.append(train_cost)
+                # Test
             for batche in batches_test:
                 (batche_x, batche_y) = batche
+                    # Compute average loss for testing set  & save in list
                 test_cost = sess.run(model['cost'], feed_dict={model['X']: batche_x, model['Y']: batche_y})
                 test_list.append(test_cost)
                 epoch_test.append(epoch)
